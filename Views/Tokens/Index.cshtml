@@ -1,0 +1,32 @@
+﻿<h4>Tokens Index</h4>
+
+<label>Source</label>
+@Html.DropDownList("Source", new SelectList(ViewBag.Sources, "Id", "Nombre"), new { @class = "form-control" })
+<br />
+<label>Token</label>
+<input type="text" class="form-control" id="Token" />
+<br />
+<input type="button" class="btn btn-primary" id="btnSend" value="Send request" />
+<hr />
+<label>Response</label>
+<input type="text" class="form-control" id="Response" />
+
+<script>
+    $(document).ready(function () {
+        $('#btnSend').click(function () {
+            var src = $('#Source').val();
+            var token = $('#Token').val();
+            $.ajax({
+                type: 'GET',
+                url: 'Add?source=' + src + '&data=' + token,
+                error: function () {
+                    $('#Response').val('Request error!!!');
+                },
+                success: function (d) {
+                    $('#Response').val(d);
+                    $('#Token').val('');
+                }
+            });
+        })
+    });
+</script>

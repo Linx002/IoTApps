@@ -1,0 +1,32 @@
+﻿<h4>Sensors Index</h4>
+
+<label>Choose Sensor</label>
+@Html.DropDownList("sensor", new SelectList(ViewBag.Sensors, "IdSensor", "Name"), new { @class = "form-control" })
+<br />
+<label>Data (only numbers)</label>
+<input type="text" class="form-control" id="Token" />
+<br />
+<input type="button" class="btn btn-primary" id="btnSend" value="Send request" />
+<hr />
+<label>Response</label>
+<input type="text" class="form-control" id="Response" />
+
+<script>
+    $(document).ready(function () {
+        $('#btnSend').click(function () {
+            var src = $('#sensor').val();
+            var token = $('#Token').val();
+            $.ajax({
+                type: 'GET',
+                url: 'AnalogReading?sensor=' + src + '&value=' + token,
+                error: function () {
+                    $('#Response').val('Request error!!!');
+                },
+                success: function (d) {
+                    $('#Response').val(d);
+                    $('#Token').val('');
+                }
+            });
+        })
+    });
+</script>
