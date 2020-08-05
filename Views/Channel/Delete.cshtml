@@ -1,0 +1,112 @@
+﻿@model IoTApps.Models.Channel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Channel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Key)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Key)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Field1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Field1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Field2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Field2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Field3)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Field3)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Field4)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Field4)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Field5)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Field5)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Field6)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Field6)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Field7)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Field7)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Field8)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Field8)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

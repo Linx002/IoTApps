@@ -1,8 +1,6 @@
 ﻿using IoTApps.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.Data.Entity;
 using System.Web.Mvc;
 
 namespace IoTApps.Controllers
@@ -19,8 +17,8 @@ namespace IoTApps.Controllers
 
         //Muestra la vista de agregar canal
         public ActionResult Add()
-        { 
-                return View();
+        {
+            return View();
         }
         [HttpPost]
         public ActionResult Add(Channel channel)
@@ -44,7 +42,8 @@ namespace IoTApps.Controllers
                     return View(channel);
                 }
             }
-            catch (Exception) {
+            catch (Exception)
+            {
 
             }
             return RedirectToAction("Index");
@@ -54,11 +53,37 @@ namespace IoTApps.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Channels.Add(channel);
+                db.Entry(channel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(channel);
         }
+        public ActionResult Delete(int id)
+        {
+            try
+            {
+                Channel channel = db.Channels.Find(id);
+
+                if (channel != null)
+                {
+                    return View(channel);
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public ActionResult Delete(int id, Channel channel)
+        {
+            db.Channels.Remove(channel);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+
+        }
+
     }
 }

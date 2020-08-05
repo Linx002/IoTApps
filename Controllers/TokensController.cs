@@ -1,9 +1,7 @@
 ﻿using IoTApps.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.Mvc;   
+using System.Web.Mvc;
 
 namespace IoTApps.Controllers
 {
@@ -37,7 +35,7 @@ namespace IoTApps.Controllers
             }
             catch (Exception ex)
             {
-                msg = ex.Message;                
+                msg = ex.Message;
             }
             return msg;
         }

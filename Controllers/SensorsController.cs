@@ -1,9 +1,6 @@
 ﻿using IoTApps.Models;
 using System;
-using System.Collections.Generic;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace IoTApps.Controllers
@@ -24,7 +21,7 @@ namespace IoTApps.Controllers
             string msg = "Error processing the request.";
             try
             {
-                if (sensor>0)
+                if (sensor > 0)
                 {
                     Readings readings = new Readings()
                     {
@@ -32,7 +29,7 @@ namespace IoTApps.Controllers
                         Date = DateTime.Now,
                         Value = value,
                         Data = value.ToString(),
-                        
+
                     };
                     db.Readings.Add(readings);
                     db.SaveChanges();
@@ -42,7 +39,7 @@ namespace IoTApps.Controllers
             catch (Exception ex)
             {
                 msg = ex.Message;
-                
+
             }
             return msg;
         }

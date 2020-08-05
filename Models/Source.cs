@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
 
 namespace IoTApps.Models
 {
-    [Table("Sources")]    
+    [Table("Sources")]
     public class Source
     {
         [Key]
@@ -20,4 +16,5 @@ namespace IoTApps.Models
         public string IP { get; set; }
         [Required]
         public string Description { get; set; }
-    }}
+    }
+}

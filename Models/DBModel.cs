@@ -1,8 +1,6 @@
 ﻿namespace IoTApps.Models
 {
-    using System;
     using System.Data.Entity;
-    using System.Linq;
 
     public class DBModel : DbContext
     {

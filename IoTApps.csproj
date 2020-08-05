@@ -192,6 +192,8 @@
     <Content Include="Views\Tokens\Index.cshtml" />
     <Content Include="Views\Sensors\Index.cshtml" />
     <Content Include="Views\Channel\Add.cshtml" />
+    <Content Include="Views\Channel\Edit.cshtml" />
+    <Content Include="Views\Channel\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

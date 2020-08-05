@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
 
 namespace IoTApps.Models
 {
@@ -12,7 +7,7 @@ namespace IoTApps.Models
     {
         [Key]
         public int id { get; set; }
-        
+
         [DisplayName("Channel Key")]
         [Required]
         public string Key { get; set; }
@@ -33,14 +28,14 @@ namespace IoTApps.Models
 
         [DisplayName("Field 3")]
         public string Field3 { get; set; }
-        
+
         [DisplayName("Field 4")]
         public string Field4 { get; set; }
 
         [DisplayName("Field 5")]
         public string Field5 { get; set; }
-        
-        [DisplayName("Field 6")]       
+
+        [DisplayName("Field 6")]
         public string Field6 { get; set; }
 
         [DisplayName("Field 7")]
