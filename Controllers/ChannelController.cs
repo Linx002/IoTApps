@@ -15,7 +15,6 @@ namespace IoTApps.Controllers
             return View();
         }
 
-        //Muestra la vista de agregar canal
         public ActionResult Add()
         {
             return View();
@@ -85,5 +84,16 @@ namespace IoTApps.Controllers
 
         }
 
+        public int AddData(Data data)
+        {
+            int res = 0;
+
+            if (ModelState.IsValid)
+            {
+                db.ChannelsData.Add(data);
+                res = db.SaveChanges();
+            }
+            return res;
+        }
     }
 }

@@ -22,5 +22,10 @@ namespace IoTApps.Controllers
 
             return View();
         }
+
+        public ActionResult Indicadores()
+        {
+            return View();
+        }
     }
 }
