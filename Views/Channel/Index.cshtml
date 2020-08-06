@@ -1,0 +1,92 @@
+﻿@model IEnumerable<IoTApps.Models.Channel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Add")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Key)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Field1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Field2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Field3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Field4)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Field5)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Field6)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Field7)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Field8)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Key)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Field1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Field2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Field3)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Field4)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Field5)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Field6)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Field7)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Field8)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

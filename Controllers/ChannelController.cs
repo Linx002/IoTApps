@@ -1,6 +1,8 @@
 ﻿using IoTApps.Models;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace IoTApps.Controllers
@@ -12,7 +14,8 @@ namespace IoTApps.Controllers
         // GET: Channel
         public ActionResult Index()
         {
-            return View();
+            List<Channel> channels = db.Channels.ToList();
+            return View(channels);
         }
 
         public ActionResult Add()
@@ -83,7 +86,7 @@ namespace IoTApps.Controllers
             return RedirectToAction("Index");
 
         }
-
+        [HttpPost]
         public int AddData(Data data)
         {
             int res = 0;
@@ -92,6 +95,29 @@ namespace IoTApps.Controllers
             {
                 db.ChannelsData.Add(data);
                 res = db.SaveChanges();
+            }
+            return res;
+        }
+
+        public int AddSensorData(string key, int field, double value)
+        {
+            int res = 0;
+            Channel channel = db.Channels.FirstOrDefault(x => x.Key == key);
+
+            if (channel != null)
+            {
+                Data data = new Data()
+                {
+                    IdChannel = channel.id,
+                    Field = field,
+                    Value = value,
+                    Date = DateTime.Now
+                };
+                if (TryValidateModel(data))
+                {
+                    db.ChannelsData.Add(data);
+                    res = db.SaveChanges();
+                }
             }
             return res;
         }
