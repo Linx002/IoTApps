@@ -121,5 +121,45 @@ namespace IoTApps.Controllers
             }
             return res;
         }
+
+        //GET: Details
+        public ActionResult Details(int id)
+        {
+            try
+            {
+                Channel channel = db.Channels.Find(id);
+
+                if (channel != null)
+                {
+
+                    return View(channel);
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public double GetValue(int channel, int field)
+        {
+            double val = 0;
+
+            try
+            {
+                //Recuperamos el valor del primer registro ordenado por fecha de manera descendiente
+                val = db.ChannelsData
+                    .Where(x=> x.IdChannel == channel && x.Field == field)
+                    .OrderByDescending(x => x.Date)
+                    .FirstOrDefault().Value;
+            }
+            catch (Exception ex)
+            {
+                val = -1;
+            }
+            return val;
+        }
     }
 }
