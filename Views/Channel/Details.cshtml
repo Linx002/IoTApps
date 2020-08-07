@@ -3,6 +3,12 @@
 @{
     ViewBag.Title = "Details";
 }
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
 <h2>Details</h2>
 
@@ -100,7 +106,126 @@
 
     </dl>
 </div>
+<div class="col-md-4">
+    <div class="form-group">
+        <div id="container-pot" class="chart-container"></div>
+    </div>
+</div>
+<div class="col-md-4">
+    <div class="form-group">
+        <div id="container-tem" class="chart-container"></div>
+    </div>
+</div>
+<div class="col-md-4">
+    <div class="form-group">
+        <div id="container-hum" class="chart-container"></div>
+    </div>
+</div>
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+<script>
+    var chartPot;
+    var chartTem;
+    var chartHum;
+
+    var gaugeOptions = {
+        chart: {
+            type: 'solidgauge'
+        },
+
+        title: null,
+
+        pane: {
+            center: ['50%', '85%'],
+            size: '140%',
+            startAngle: -90,
+            endAngle: 90,
+            background: {
+                backgroundColor:
+                    Highcharts.defaultOptions.legend.backgroundColor || '#EEE',
+                innerRadius: '60%',
+                outerRadius: '100%',
+                shape: 'arc'
+            }
+        },
+
+        exporting: {
+            enabled: false
+        },
+
+        tooltip: {
+            enabled: false
+        },
+
+        // the value axis
+        yAxis: {
+            stops: [
+                [0.1, '#55BF3B'], // green
+                [0.5, '#DDDF0D'], // yellow
+                [0.9, '#DF5353'] // red
+            ],
+            lineWidth: 0,
+            tickWidth: 0,
+            minorTickInterval: null,
+            tickAmount: 2,
+            title: {
+                y: -70
+            },
+            labels: {
+                y: 16
+            }
+        },
+
+        plotOptions: {
+            solidgauge: {
+                dataLabels: {
+                    y: 5,
+                    borderWidth: 0,
+                    useHTML: true
+                }
+            }
+        }
+    };
+
+    function Graficar(contenedor, min, max, texto, unidades) {
+        return Highcharts.chart('container-speed', Highcharts.merge(gaugeOptions, {
+            yAxis: {
+                min: min,
+                max: max,
+                title: {
+                    text: texto
+                }
+            },
+
+            credits: {
+                enabled: false
+            },
+
+            series: [{
+                name: texto
+                data: 0,
+                dataLabels: {
+                    format:
+                        '<div style="text-align:center">' +
+                        '<span style="font-size:25px">{y}</span><br/>' +
+                        '<span style="font-size:12px;opacity:0.4"></span>' +
+                        '</div>'
+                },
+                tooltip: {
+                    valueSuffix: unidades
+                }
+            }]
+        }));
+    }
+    $(document).ready(function () {
+        //Creamos las tres graficas o las que se requieran
+        chartPot = Graficar('container-pot', 100, 1024, 'POT', 'Resistencia');
+        chartTem = Graficar('container-tem', 0, 50, 'TMP', 'ºC');
+        chartHum = Graficar('container-hum', 20, 80, 'HUM', '%');
+
+    });
+</script>
