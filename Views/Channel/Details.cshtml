@@ -10,6 +10,57 @@
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
+<style>
+
+    .body {
+        backface-visibility: 0;
+    }
+
+    .highcharts-figure .chart-container {
+        width: 300px;
+        height: 200px;
+        float: left;
+    }
+
+    .highcharts-figure, .highcharts-data-table table {
+        width: 900px;
+        margin: 0 auto;
+    }
+
+    .highcharts-data-table table {
+        font-family: Verdana, sans-serif;
+        border-collapse: collapse;
+        border: 1px solid #EBEBEB;
+        margin: 10px auto;
+        text-align: center;
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .highcharts-data-table caption {
+        padding: 1em 0;
+        font-size: 1.2em;
+        color: #555;
+    }
+
+    .highcharts-data-table th {
+        font-weight: 900;
+        padding: 0.5em;
+    }
+
+    .highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
+        padding: 0.5em;
+    }
+
+    .highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even) {
+        background: #f8f8f8;
+    }
+
+    .highcharts-data-table tr:hover {
+        background: #f1f7ff;
+    }
+</style>
+
 <h2>Details</h2>
 
 <div>
@@ -106,19 +157,14 @@
 
     </dl>
 </div>
-<div class="col-md-4">
+<div class="col-md-12">
     <div class="form-group">
-        <div id="container-pot" class="chart-container"></div>
-    </div>
-</div>
-<div class="col-md-4">
-    <div class="form-group">
-        <div id="container-tem" class="chart-container"></div>
-    </div>
-</div>
-<div class="col-md-4">
-    <div class="form-group">
-        <div id="container-hum" class="chart-container"></div>
+        <figure class="highcharts-figure">
+            <div id="container-pot" class="chart-container"></div>
+            <div id="container-tem" class="chart-container"></div>
+            <div id="container-hum" class="chart-container"></div>
+        </figure>
+            @*<div id="container-pot" class="chart-container"></div>*@
     </div>
 </div>
 
@@ -192,7 +238,7 @@
     };
 
     function Graficar(contenedor, min, max, texto, unidades) {
-        return Highcharts.chart('container-speed', Highcharts.merge(gaugeOptions, {
+        return Highcharts.chart(contenedor, Highcharts.merge(gaugeOptions, {
             yAxis: {
                 min: min,
                 max: max,
@@ -206,13 +252,13 @@
             },
 
             series: [{
-                name: texto
-                data: 0,
+                name: texto,
+                data: [parseInt('0')],
                 dataLabels: {
                     format:
                         '<div style="text-align:center">' +
                         '<span style="font-size:25px">{y}</span><br/>' +
-                        '<span style="font-size:12px;opacity:0.4"></span>' +
+                        '<span style="font-size:12px;opacity:0.4">'+ unidades + '</span>' +
                         '</div>'
                 },
                 tooltip: {
@@ -226,6 +272,51 @@
         chartPot = Graficar('container-pot', 100, 1024, 'POT', 'Resistencia');
         chartTem = Graficar('container-tem', 0, 50, 'TMP', 'ºC');
         chartHum = Graficar('container-hum', 20, 80, 'HUM', '%');
-
     });
+
+    setInterval(function () {
+
+        var point;
+
+        if (chartPot) {
+            $.ajax({
+                type: 'POST',
+                url: "/Channel/GetValue",
+                data: JSON.stringify({ channel: '@Model.id', field: 1 }),
+                contentType: 'application/json', 
+                error: function () { },
+                success: function (val) {
+                    point = chartPot.series[0].points[0];
+                    point.update(parseInt(val));
+                }
+            })
+        }
+        if (chartTem) {
+
+            $.ajax({
+                type: 'POST',
+                url: "/Channel/GetValue",
+                data: JSON.stringify({ channel: '@Model.id', field: 2 }),
+                contentType: 'application/json',
+                error: function () { },
+                success: function (val) {
+                    point = chartTem.series[0].points[0];
+                    point.update(parseInt(val));
+                }
+            })
+        }
+        if (chartHum) {
+            $.ajax({
+                type: 'POST',
+                url: "/Channel/GetValue",
+                data: JSON.stringify({ channel: '@Model.id', field: 3 }),
+                contentType: 'application/json',
+                error: function () { },
+                success: function (val) {
+                    point = chartHum.series[0].points[0];
+                    point.update(parseInt(val));
+                }
+            })
+        }
+    }, 5000);
 </script>
